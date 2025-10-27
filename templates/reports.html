@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Products | StockPilot{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/reports.css' %}">
+<div class="container-fluid p-4">
+    <h3 class="fw-bold">Reports Generation</h3>
+    <p class="text-muted mb-4">Generate and download reports for your inventory and sales data.</p>
+
+  
+    <div class="report-card">
+      <h6 class="fw-bold">Download Product List (PDF)</h6>
+      <p class="text-muted mb-3">Get a complete list of all your products...</p>
+      <a href="{% url 'download_product_report' %}" class="btn btn-download">Download PDF</a>
+    </div>
+
+
+    <div class="report-card">
+      <h6 class="fw-bold mb-3">Select Date Range</h6>
+      <form method="get" action="{% url 'download_sales_report' %}">
+        <div class="row g-3">
+          <div class="col-md-5 col-12">
+            <input type="date" class="form-control" name="start_date" required>
+          </div>
+          <div class="col-md-5 col-12">
+            <input type="date" class="form-control" name="end_date" required>
+          </div>
+          <div class="col-md-2 col-12">
+            <button type="submit" class="btn btn-download w-100">Download Sales Report</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% endblock %}
+
+
+
+
+

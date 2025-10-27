@@ -1,0 +1,113 @@
+body {
+      font-family: "Inter", sans-serif;
+      background-color: #f6f7f8;
+      color: #212529;
+    }
+
+ 
+    .sidebar {
+      width: 250px;
+      background-color: #fff;
+      border-right: 1px solid #ddd;
+      min-height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1050;
+      transition: left 0.3s ease;
+    }
+    .sidebar .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      color: #333;
+      padding: 10px 15px;
+      border-radius: 6px;
+      margin: 4px 8px;
+    }
+    .sidebar .nav-link:hover,
+    .sidebar .active {
+      background-color: rgba(17, 115, 212, 0.1);
+      color: #1173d4;
+    }
+    .sidebar .logo {
+      height: 60px;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+   
+    .btn-primary {
+      background-color: #1173d4;
+      border-color: #1173d4;
+    }
+    .btn-primary:hover {
+      background-color: #0d5fb0;
+      border-color: #0d5fb0;
+    }
+
+
+    .content {
+      padding: 20px;
+      background-color: #f6f7f8;
+      min-height: 100vh;
+    }
+    @media (min-width: 992px) {
+      .content {
+        margin-left: 250px;
+      }
+    }
+
+    @media (max-width: 991.98px) {
+      .sidebar {
+        left: -250px;
+      }
+      .sidebar.show {
+        left: 0;
+      }
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1040;
+      }
+      .overlay.show {
+        display: block;
+      }
+      .mobile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background-color: #fff;
+        border-bottom: 1px solid #ddd;
+        position: sticky;
+        top: 0;
+        z-index: 1060;
+      }
+      
+    }
+
+    .card-custom {
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .recent-activity .icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    .bg-primary-light { background-color: rgba(17,115,212,0.1); color:#1173d4; }
+    .bg-yellow-light { background-color: rgba(255,193,7,0.1); color:#ffc107; }
+    .bg-warning-light { background-color: rgba(255,193,7,0.1); color:#ffc107; }

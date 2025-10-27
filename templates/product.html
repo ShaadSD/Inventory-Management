@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Products | StockPilot{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+{% endblock %}
+
+{% block content %}
+
+  <div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+      <h2 class="h4 fw-bold">Product Management</h2>
+      <button class="btn btn-primary d-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#addProductModal">
+        <span class="material-symbols-outlined">add</span> Add Product
+      </button>
+    </div>
+
+   
+    <form method="get" class="row g-3 mb-4">
+      <div class="col-md-4 col-12">
+        <input type="text" name="search" class="form-control" placeholder="Search products..." value="{{ search }}">
+      </div>
+      <div class="col-md-4 col-12">
+        <select name="category" class="form-select">
+          <option value="">Select Category</option>
+          {% for cat in categories %}
+          <option value="{{ cat.id }}" {% if cat.id|stringformat:"s" == selected_category %}selected{% endif %}>{{ cat.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-2">
+        <input type="text" name="supplier" class="form-control" placeholder="Supplier" value="{{ selected_supplier }}">
+      </div>
+      <div class="col-md-2 col-12 d-flex align-items-end gap-2">
+        <button type="submit" class="btn btn-outline-primary">Filter</button>
+        <a href="{% url 'product_list' %}" class="btn btn-outline-secondary">Reset</a>
+      </div>
+    </form>
+
+ 
+    <div class="card shadow-sm w-100 mb-4">
+      <div class="card-body">
+        <h5 class="card-title fw-bold mb-3">Product List</h5>
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>Name</th>
+                <th>SKU</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Supplier</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for product in products %}
+              <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.sku }}</td>
+                <td>{{ product.category.name }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>${{ product.price }}</td>
+                <td>{{ product.supplier }}</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editProductModal{{ product.id }}">Edit</button>
+                  <form method="post" action="{% url 'product_delete' product.id %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?');">Delete</button>
+                  </form>
+                </td>
+              </tr>
+              {% empty %}
+              <tr><td colspan="7" class="text-center text-muted">No products found.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+{% for product in products %}
+<div class="modal fade" id="editProductModal{{ product.id }}" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content p-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="modal-title fw-bold">Edit Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="post" action="{% url 'product_edit' product.id %}">
+        {% csrf_token %}
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" class="form-control" value="{{ product.name }}" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">SKU</label>
+            <input type="text" name="sku" class="form-control" value="{{ product.sku }}" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Category</label>
+            <select name="category" class="form-select" required>
+              {% for cat in categories %}
+              <option value="{{ cat.id }}" {% if cat.id == product.category.id %}selected{% endif %}>{{ cat.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Price</label>
+            <input type="number" name="price" step="0.01" class="form-control" value="{{ product.price }}" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Quantity</label>
+            <input type="number" name="quantity" class="form-control" value="{{ product.quantity }}" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Supplier</label>
+            <input type="text" name="supplier" class="form-control" value="{{ product.supplier }}">
+          </div>
+        </div>
+        <div class="d-flex justify-content-end mt-3 gap-2">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content p-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="modal-title fw-bold">Add Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="post" action="{% url 'add_product' %}">
+        {% csrf_token %}
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">SKU</label>
+            <input type="text" name="sku" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Category</label>
+            <select name="category" class="form-select" required>
+              <option value="">Select Category</option>
+              {% for cat in categories %}
+              <option value="{{ cat.id }}">{{ cat.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Price</label>
+            <input type="number" step="0.01" name="price" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Quantity</label>
+            <input type="number" name="quantity" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Supplier</label>
+            <input type="text" name="supplier" class="form-control">
+          </div>
+        </div>
+        <div class="d-flex justify-content-end mt-3 gap-2">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
