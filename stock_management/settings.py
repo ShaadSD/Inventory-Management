@@ -30,9 +30,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@m5t=l68h8%rr=uoy7o5b7moqoimo#1wxk178olg)u#*h25iry'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-CSRF_TRUSTED_ORIGINS = ['http://inventory-management-9hzm.onrender.com','https://*.127.0.0.1']
+DEBUG = False
+ALLOWED_HOSTS = ['inventory-management-9hzm.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://inventory-management-9hzm.onrender.com']
 
 
 # Application definition
