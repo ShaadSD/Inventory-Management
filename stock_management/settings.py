@@ -32,7 +32,9 @@ SECRET_KEY = 'django-insecure-@m5t=l68h8%rr=uoy7o5b7moqoimo#1wxk178olg)u#*h25iry
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 ALLOWED_HOSTS = ['inventory-management-9hzm.onrender.com']
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://inventory-management-9hzm.onrender.com'
+]
 # Application definition
 
 INSTALLED_APPS = [

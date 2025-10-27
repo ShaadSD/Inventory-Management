@@ -1,10 +1,8 @@
-
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('product_list/', views.product_list, name='product_list'),     
+    path('product_list/', views.product_list, name='product_list'),
     path('add/', views.add_product, name='add_product'),
     path('products/edit/<int:pk>/', views.product_edit, name='product_edit'),
     path('products/delete/<int:pk>/', views.product_delete, name='product_delete'),
@@ -19,6 +17,4 @@ urlpatterns = [
     path('reports/sales/pdf/', views.download_sales_report, name='download_sales_report'),
     path('report/', views.reports, name='report'),
     path('dashboard/', views.dashboard, name='dashboard'),
-
-
 ]
