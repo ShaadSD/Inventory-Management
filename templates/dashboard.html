@@ -24,26 +24,26 @@
 
     <div class="col-md-3 col-sm-6">
       <div class="card card-custom p-3 text-center">
-        <h6 class="text-muted">Total Products</h6>
-        <h3 class="fw-bold">{{ total_products }}</h3>
+        <a href="{% url 'product_list' %}" class="text-decoration-none"><h6 class="text-muted">Total Products</h6></a>
+        <a href="{% url 'product_list' %}" class="text-decoration-none"><h3 class="fw-bold">{{ total_products }}</h3></a>
       </div>
     </div>
     <div class="col-md-3 col-sm-6">
       <div class="card card-custom p-3 text-center">
-        <h6 class="text-muted">Total Sales</h6>
-        <h3 class="fw-bold">${{ total_sales }}</h3>
+        <a href="{% url 'sales_list' %}" class="text-decoration-none"><h6 class="text-muted">Total Sales</h6></a>
+        <a href="{% url 'sales_list' %}" class="text-decoration-none"><h3 class="fw-bold">${{ total_sales }}</h3></a>
       </div>
     </div>
     <div class="col-md-3 col-sm-6">
       <div class="card card-custom p-3 text-center">
-        <h6 class="text-muted">Current Stock</h6>
-        <h3 class="fw-bold">{{ current_stock }}</h3>
+        <a href="{% url 'stock_list' %}" class="text-decoration-none"><h6 class="text-muted">Current Stock</h6></a>
+        <a href="{% url 'stock_list' %}" class="text-decoration-none"><h3 class="fw-bold">{{ current_stock }}</h3></a>
       </div>
     </div>
     <div class="col-md-3 col-sm-6">
       <div class="card card-custom p-3 text-center">
         <h6 class="text-muted">Low Stock</h6>
-        <h3 class="fw-bold">{{ low_stock }}</h3>
+        <h3 class="fw-bold text-danger">{{ low_stock }}</h3>
       </div>
     </div>
 
@@ -69,8 +69,8 @@
           <span class="material-symbols-outlined">receipt_long</span>
         </div>
         <div class="ms-2">
-          <p class="mb-0 fw-medium">New Sale</p>
-          <small class="text-muted">{{ sale.product.name }} ({{ sale.quantity_sold }} pcs)</small>
+          <a href="{% url 'sales_list' %}" class="text-decoration-none"><p class="mb-0 fw-medium text-dark">New Sale</p></a>
+          <a href="{% url 'sales_list' %}" class="text-decoration-none"><small class="text-muted">{{ sale.product.name }} ({{ sale.quantity_sold }} pcs)</small></a>
         </div>
       </li>
       {% endfor %}
@@ -82,8 +82,8 @@
           <span class="material-symbols-outlined">person_add</span>
         </div>
         <div class="ms-2">
-          <p class="mb-0 fw-medium">Recent Customer</p>
-          <small class="text-muted">{{ p.name }}</small>
+          <a href="{% url 'sales_list' %}" class="text-decoration-none"><p class="mb-0 fw-medium text-dark">Recent Customer</p></a>
+          <a href="{% url 'sales_list' %}" class="text-decoration-none"><small class="text-muted">{{ p.name }}</small></a>
         </div>
       </li>
       {% endfor %}

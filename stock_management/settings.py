@@ -31,9 +31,11 @@ SECRET_KEY = 'django-insecure-@m5t=l68h8%rr=uoy7o5b7moqoimo#1wxk178olg)u#*h25iry
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ['inventory-management-9hzm.onrender.com']
+ALLOWED_HOSTS = ['inventory-management-9hzm.onrender.com', '127.0.0.1']
+
 CSRF_TRUSTED_ORIGINS = [
-    'https://inventory-management-9hzm.onrender.com'
+    'https://inventory-management-9hzm.onrender.com',
+    'http://127.0.0.1:8000',
 ]
 # Application definition
 
